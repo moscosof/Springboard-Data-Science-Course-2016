@@ -1,14 +1,14 @@
 # Springboard-Data-Science-Course-2016
 
-Initial Idea.  Capstone Project.
+**Initial Idea.  Capstone Project.**
 
 Prudential Life Insurance assessment: Can you make buying life insurance easier? (Kaggle Competitions)
 
-•	Background: The on-line life insurance application process is antiquated. Customers provide extensive information to identify risk classification and eligibility, including scheduling medical exams, a process that takes an average of 30 days.
+**Background:**  The on-line life insurance application process is antiquated. Customers provide extensive information to identify risk classification and eligibility, including scheduling medical exams, a process that takes an average of 30 days.
 
-•	The Aim: Develop a predictive model that accurately classifies risk using a more automated approach.  The results will help Prudential understand the predictive power of the data points in the existing assessment, enabling us to significantly streamline the process.
+**The Aim:** Develop a predictive model that accurately classifies risk using a more automated approach.  The results will help Prudential understand the predictive power of the data points in the existing assessment, enabling us to significantly streamline the process.
 
-•	Data:                                                                                                                                    
+**Data:**                                                                                                                                    
 train.cvs: Conntains the response values.                                                                                                   
 test.csv: The test set, you must predict the Response variable for all rows in this file.                                                     
 sample_submission.csv: a sample submission file in the correct format.
