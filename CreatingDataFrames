@@ -1,0 +1,179 @@
+
+# First R programming code - Data Analysis
+
+# Creating Data Frames: Employment, FamilyHistory, InsuranceHistory, Insured, MedicalHistory, MedicalKeyword, Product, Results.
+
+
+# Load raw data to 'train' and 'test' repositories
+train <- read.csv("train.csv", header = TRUE)
+test <-  read.csv("test.csv", header = TRUE)
+
+# Number of rows in 'train'
+nrow(train)
+
+# Number of rows in 'test'
+nrow(test)
+
+# Number of columns in 'train'
+ncol(train)
+
+# Number of columns in 'test'
+ncol(test)
+
+# Combine 'train' and 'test':  s
+# Since 'train' has one more extra column "Response" as the last column, a new
+# column "Response" needs to added to 'test' as well. Therefore, both tables will have the
+# same number of columns.
+
+# Create a new data frame called 'test.response' starting with the current repository 'test' 
+# and adding to each row a NA value that will represent the new column 'Response' (last column).
+# rep(NA, nrow(test)) represents a vector with the same number of elements as rows in test and 
+# with a value NA as a default. 
+
+test.response = data.frame(test[,], Response = rep(NA, nrow(test)))
+
+# The new number of columns in 'test' after adding column 'Response':
+ncol(test.response)
+
+# DATA STRUCTURE
+#1-1 ID
+
+#2-8 Product_Info_1-7  A set of normalized variables relating to the product applied for
+Product <- train[,2:8]
+> tail(Product)
+      Product_Info_1 Product_Info_2 Product_Info_3 Product_Info_4 Product_Info_5
+19760              1             D4             26     0.48717949              2
+19761              1             D3             26     0.12820513              2
+19762              1             D4             10     0.23076923              2
+19763              1             A2             26     0.07692308              2
+19764              1             D1             26     0.48717949              2
+19765              1             D3             26     1.00000000              2
+      Product_Info_6 Product_Info_7
+19760              3              1
+19761              3              1
+19762              3              1
+19763              3              1
+19764              3              1
+19765              1              1
+
+#9-9   Ins_Age	Normalized age of applicant
+#10-10 Ht	Normalized height of applicant
+#11-11 Wt	Normalized weight of applicant
+#12-12 BMI	Normalized BMI of applicant
+
+#13-18 Employment_Info_1-6	A set of normalized variables relating to the employment history of the applicant.
+Employment <- train[13:18]
+> head(Employment)
+  Employment_Info_1 Employment_Info_2 Employment_Info_3 Employment_Info_4
+1             0.028                12                 1                 0
+2             0.000                 1                 3                 0
+3             0.030                 9                 1                 0
+4             0.042                 9                 1                 0
+5             0.027                 9                 1                 0
+6             0.325                15                 1                 0
+  Employment_Info_5 Employment_Info_6
+1                 3                NA
+2                 2            0.0018
+3                 2            0.0300
+4                 3            0.2000
+5                 2            0.0500
+6                 2            1.0000
+
+#19-24 InsuredInfo_1-7	A set of normalized variables providing information about the applicant.
+Insured <- train[19:25]
+
+> head(Insured)
+  InsuredInfo_1 InsuredInfo_2 InsuredInfo_3 InsuredInfo_4 InsuredInfo_5
+1             1             2             6             3             1
+2             1             2             6             3             1
+3             1             2             8             3             1
+4             2             2             8             3             1
+5             1             2             6             3             1
+6             1             2             8             3             1
+  InsuredInfo_6 InsuredInfo_7
+1             2             1
+2             2             1
+3             1             1
+4             2             1
+5             2             1
+6             1             1
+
+#26-34 Insurance_History_1-8	A set of normalized variables relating to the insurance history of the applicant.
+# There is not Insurance_History6
+InsuranceHistory <- train[26:33]
+> head(InsuranceHistory)
+  Insurance_History_1 Insurance_History_2 Insurance_History_3 Insurance_History_4
+1                   1                   1                   3                   1
+2                   2                   1                   3                   1
+3                   2                   1                   1                   3
+4                   2                   1                   1                   3
+5                   2                   1                   1                   3
+6                   2                   1                   3                   2
+  Insurance_History_5 Insurance_History_7 Insurance_History_8 Insurance_History_9
+1         0.000666667                   1                   1                   2
+2         0.000133333                   1                   3                   2
+3                  NA                   3                   2                   3
+4                  NA                   3                   2                   3
+5                  NA                   3                   2                   3
+6         0.005000000                   1                   3                   2
+6                   2
+
+
+# 34-38 Family_Hist_1-5	A set of normalized variables relating to the family history of the applicant.
+FamilyHistory <- train[34:38]
+> head(FamilyHistory)
+  Family_Hist_1 Family_Hist_2 Family_Hist_3 Family_Hist_4 Family_Hist_5
+1             2            NA     0.5980392            NA     0.5267857
+2             2     0.1884058            NA    0.08450704            NA
+3             3     0.3043478            NA    0.22535211            NA
+4             3     0.4202899            NA    0.35211268            NA
+5             2     0.4637681            NA    0.40845070            NA
+6             2            NA     0.2941176    0.50704225            NA
+ 
+#39-79 Medical_History_1-41	A set of normalized variables relating to the medical history of the applicant.
+MedicalHistory <- train[39:79]
+> str(MedicalHistory)
+'data.frame':	59381 obs. of  41 variables:
+ $ Medical_History_1 : int  4 5 10 0 NA 6 5 6 4 NA ...
+ $ Medical_History_2 : int  112 412 3 350 162 491 600 145 16 162 ...
+ $ Medical_History_3 : int  2 2 2 2 2 2 3 2 2 2 ...
+ $ Medical_History_4 : int  1 1 2 2 2 2 2 2 2 2 ...
+ $ Medical_History_5 : int  1 1 1 1 1 1 1 1 1 1 ...
+ $ Medical_History_6 : int  3 3 3 3 3 3 3 3 3 3 ...
+ $ Medical_History_7 : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ Medical_History_8 : int  2 2 2 2 2 2 2 2 2 2 ...
+ $ Medical_History_9 : int  1 1 2 2 2 2 1 1 1 2 ...
+ $ Medical_History_10: int  NA NA NA NA NA NA NA NA NA NA ...
+  ...
+  ....
+ $ Medical_History_39: int  3 3 3 3 3 3 3 3 3 3 ...
+ $ Medical_History_40: int  3 3 3 3 3 3 3 3 3 3 ...
+ $ Medical_History_41: int  3 1 1 1 1 3 3 1 3 1 ...
+
+# 80-127 Medical_Keyword_1-48	A set of dummy variables relating to the presence of/absence of a
+# medical keyword being associated with the application.
+MedicalKeyword <- train[80:127]
+> str(MedicalKeyword)
+'data.frame':	59381 obs. of  48 variables:
+ $ Medical_Keyword_1 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_2 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_3 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_4 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_5 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_6 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_7 : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_8 : int  0 0 0 0 0 0 0 0 0 0 ...
+ .......
+ ....... 
+ $ Medical_Keyword_45: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_46: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_47: int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Medical_Keyword_48: int  0 0 0 0 0 0 0 0 0 0 ...
+
+# 128
+ Results <- train[128:128]
+> mean(Results[,1])
+[1] 5.636837
+
+> mean(MedicalKeyword[,4])    #How can I get the mean of all the columns in MedicalKeyword
+[1] 0.01455011
