@@ -1,6 +1,6 @@
 # Springboard-Data-Science-Course-2016
 
-**Initial Idea.  Capstone Project.**
+**Initial Idea.  Capstone Project.**     Kaggle Competitions
 
 Prudential Life Insurance assessment: Can you make buying life insurance easier? (Kaggle Competitions)
 
@@ -16,3 +16,4 @@ sample_submission.csv: a sample submission file in the correct format.
 In this dataset, you are provided over a hundred variables describing attributes of life insurance applicants.
 The task is to predict the "Response" variable for each Id in the test set. "Response" is an ordinal measure of risk that has 8 levels.
 
+Data Source:  https://www.kaggle.com/c/prudential-life-insurance-assessment
