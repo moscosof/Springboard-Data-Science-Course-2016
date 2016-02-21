@@ -104,3 +104,46 @@ data.combined <- rbind(train, test.response)
 # The mean of column Age in table 'test'
 > mean(test[,"Ins_Age"])
 [1] 0.4149012
+
+#Fields "Ins_Age" "Ht" "Wt" "BMI" ~ Omit NA values  
+PersonalData <- na.omit(select(train,9:12, 128))
+
+# Sum 'Response' values for Ins_Age = 0
+> filter(PersonalData,  Ins_Age == 0) %>% summarise(sum(Response))
+  sum(Response)
+1 1769
+
+# Count entries for Ins_age = 0
+> filter(PersonalData,  Ins_Age == 0) %>% summarise(n())
+  n()
+1 287
+
+# Group by Ins_Age and create variable Count_InsAge that count the number of entries per Age group
+# Returns 2 columns: Ins_Age Count_InsAge
+CountGroupAge <- 
+  PersonalData %>% 
+  group_by(Ins_Age) %>% 
+  summarise(Count_InsAge=n())
+  
+# Group by Age and gives average for Ht, Wt, BMI and Response
+Group_by_Age <- 
+  PersonalData %>% 
+  group_by(Ins_Age) %>% 
+  summarise_each(funs(mean))
+
+# Group by Age and gives average for Ht, Wt, BMI and Response. Descending Sort
+# by Average Response. This will tell what age scored higher than others.
+Group_by_Age <- 
+  PersonalData %>% 
+  group_by(Ins_Age) %>% 
+  summarise(Avg_Ht=mean(Ht),Avg_Wt=mean(Wt),
+            Avg_BMI=mean(BMI),Avg_Response=mean(Response)) %>%
+            arrange(desc(Avg_Response))  
+            
+
+  
+  
+  
+  
+  
+  
