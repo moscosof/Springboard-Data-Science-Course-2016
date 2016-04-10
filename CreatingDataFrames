@@ -1,7 +1,7 @@
 
-# First R programming code - Data Analysis
+**Checking dataset fields.**
 
-# Creating Data Frames: Employment, FamilyHistory, InsuranceHistory, Insured, MedicalHistory, MedicalKeyword, Product, Results.
+**Creating Data Frames:** Employment, FamilyHistory, InsuranceHistory, Insured, MedicalHistory, MedicalKeyword, Product, Results.
 
 
 # Load raw data to 'train' and 'test' repositories
@@ -175,5 +175,3 @@ MedicalKeyword <- train[80:127]
 > mean(Results[,1])
 [1] 5.636837
 
-> mean(MedicalKeyword[,4])    #How can I get the mean of all the columns in MedicalKeyword
-[1] 0.01455011
