@@ -1,5 +1,7 @@
 # Springboard-Data-Science-Course-2016
 
+**Objective:** Get familiar with EDA using R commands (filter, select, chaining, group_by, summarise, mean, etc). Use Capstone project data sets (train.csv and test.csv).
+
 **Initial Idea.  Capstone Project.**     Kaggle Competitions
 
 Prudential Life Insurance assessment: Can you make buying life insurance easier? (Kaggle Competitions)
