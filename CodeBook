@@ -105,7 +105,7 @@ data.combined <- rbind(train, test.response)
 > mean(test[,"Ins_Age"])
 [1] 0.4149012
 
-#Fields "Ins_Age" "Ht" "Wt" "BMI" ~ Omit NA values  
+#Create data frame 'PersonalData' with fields "Ins_Age" "Ht" "Wt" "BMI". Omit NA values  
 PersonalData <- na.omit(select(train,9:12, 128))
 
 # Sum 'Response' values for Ins_Age = 0
@@ -118,20 +118,54 @@ PersonalData <- na.omit(select(train,9:12, 128))
   n()
 1 287
 
-# Group by Ins_Age and create variable Count_InsAge that count the number of entries per Age group
+# Group by Ins_Age and create variable Count_InsAge that counts the number of entries per Age group
 # Returns 2 columns: Ins_Age Count_InsAge
-CountGroupAge <- 
+> CountGroupAge <- 
   PersonalData %>% 
   group_by(Ins_Age) %>% 
   summarise(Count_InsAge=n())
   
-# Group by Age and gives average for Ht, Wt, BMI and Response
-Group_by_Age <- 
+> CountGroupAge
+Source: local data frame [65 x 2]
+
+      Ins_Age Count_InsAge
+        (dbl)        (int)
+1  0.00000000          287
+2  0.01492537          248
+3  0.02985075          288
+4  0.04477612          385
+5  0.05970149          490
+6  0.07462687          605
+7  0.08955224          922
+8  0.10447761          787
+9  0.11940299          839
+10 0.13432836          993
+..        ...          ...  
+  
+# Group by Age and calculate the mean for the remaining columns (Ht, Wt, BMI and Response)
+> Group_by_Age <- 
   PersonalData %>% 
   group_by(Ins_Age) %>% 
   summarise_each(funs(mean))
+  
+> Group_by_Age
+Source: local data frame [65 x 5]
 
-# Group by Age and gives average for Ht, Wt, BMI and Response. Descending Sort
+      Ins_Age        Ht        Wt       BMI Response
+        (dbl)     (dbl)     (dbl)     (dbl)    (dbl)
+1  0.00000000 0.6947735 0.2452072 0.3994403 6.163763
+2  0.01492537 0.7038123 0.2579802 0.4139813 5.935484
+3  0.02985075 0.6957071 0.2571260 0.4219122 5.972222
+4  0.04477612 0.6980401 0.2556214 0.4149987 6.275325
+5  0.05970149 0.6953247 0.2583895 0.4228910 6.093878
+6  0.07462687 0.6913899 0.2540268 0.4197052 6.231405
+7  0.08955224 0.7042004 0.2705234 0.4346929 6.258134
+8  0.10447761 0.7021601 0.2698054 0.4345143 6.151207
+9  0.11940299 0.7029364 0.2705577 0.4360935 6.488677
+10 0.13432836 0.7041838 0.2794372 0.4511306 6.221551
+..        ...       ...       ...       ...      ...  
+
+# Group by Age and calculates Ht, Wt, BMI and Response average. Descending Sort
 # by Average Response. This will tell what age scored higher than others.
 Group_by_Age <- 
   PersonalData %>% 
@@ -139,6 +173,23 @@ Group_by_Age <-
   summarise(Avg_Ht=mean(Ht),Avg_Wt=mean(Wt),
             Avg_BMI=mean(BMI),Avg_Response=mean(Response)) %>%
             arrange(desc(Avg_Response))  
+            
+> Group_by_Age
+Source: local data frame [65 x 5]
+
+      Ins_Age    Avg_Ht    Avg_Wt   Avg_BMI Avg_Response
+        (dbl)     (dbl)     (dbl)     (dbl)        (dbl)
+1  0.11940299 0.7029364 0.2705577 0.4360935     6.488677
+2  0.17910448 0.7011381 0.2758509 0.4464408     6.315234
+3  0.16417910 0.7112668 0.2828675 0.4486665     6.290164
+4  0.04477612 0.6980401 0.2556214 0.4149987     6.275325
+5  0.14925373 0.7042977 0.2780389 0.4455479     6.261841
+6  0.08955224 0.7042004 0.2705234 0.4346929     6.258134
+7  0.07462687 0.6913899 0.2540268 0.4197052     6.231405
+8  0.13432836 0.7041838 0.2794372 0.4511306     6.221551
+9  0.20895522 0.7094545 0.2820921 0.4486803     6.211429
+10 0.19402985 0.7102081 0.2836218 0.4504885     6.174207
+..        ...       ...       ...       ...          ...            
             
 
   
